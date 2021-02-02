@@ -16,9 +16,9 @@ void draw() {
   
   board.drawBoard();
   
-  player.animatePlayer();
+  player.animatePlayer();s
   player.drawPlayer();
-  player.movePlayer();
+  player.moveEntity();
   
   
 }
