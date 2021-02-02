@@ -6,20 +6,40 @@ abstract class Movable{
   //logical position
   float x;
   float y;
-  int xtarget = 8;
-  int ytarget = 12;
+  int xtarget;
+  int ytarget;
   
-  int speed = 1;
+  int speed;
   int factor;
-  boolean direction = true; //true is right/left, false is up/down
+  boolean direction; //true is right/left, false is up/down
   
-  Movable(int x, int y, int newfactor) {
+  Movable(int x, int y, int goalx, int goaly, int newfactor) {
     x_pos = x*50+25;
     y_pos = y*50+25;
-    factor = newfactor; //changes speed
+    factor = newfactor; //changes speed, can be buggy
+    //first square
+    xtarget = goalx;
+    ytarget = goaly;
   }
   
   abstract void changeDirection();
+  
+  //wall detection
+  boolean isWall(){
+    if(direction){
+        //check for wall
+        if (board.getSquare(xtarget+speed, ytarget) != 2){
+          return true;
+        }
+
+      } else {
+        if (board.getSquare(xtarget, ytarget+speed) != 2){
+          return true;
+        }
+      }
+      return false;
+  }
+  
   
   //straight-line movement
   void moveEntity() {
@@ -41,17 +61,17 @@ abstract class Movable{
           }
         }
         //check for wall
-        if (board.getSquare(xtarget+speed, ytarget) != 2){
+        if (isWall()){
           xtarget += speed;
         }
 
       } else {
-        if (board.getSquare(xtarget, ytarget+speed) != 2){
+        if (isWall()){
           ytarget += speed;
         }
       }
         
-     } else {
+    } else {
        if (direction) {
          x_pos += speed*factor;
        } else {

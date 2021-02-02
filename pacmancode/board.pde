@@ -1,26 +1,29 @@
 class Board {
   //deals with setup of board
   
-  //ghost start: x: 6, 7 y: 8, 9
+  //ghost start: y: 6, 7 x: 8, 9
   //pacman start: (7, 12)
   int[][] walls = {
    {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-   {2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2},
+   {2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 2},
    {2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2},
-   {2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2},
+   {2, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 1, 2},
    {2, 1, 2, 1, 2, 2, 2, 0, 0, 2, 2, 2, 1, 2, 1, 2},
    {2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2},
    {2, 1, 2, 2, 2, 1, 2, 1, 1, 2, 1, 2, 2, 2, 1, 2},
-   {2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2},
+   {2, 1, 2, 2, 2, 3, 2, 2, 2, 2, 3, 2, 2, 2, 1, 2},
    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
    {2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2},
    {2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2},
    {2, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2},
-   {2, 1, 2, 1, 1, 2, 1, 0, 1, 1, 2, 1, 1, 2, 1, 2},
+   {2, 1, 2, 3, 1, 2, 1, 0, 1, 1, 2, 1, 3, 2, 1, 2},
    {2, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2},
-   {2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2},
+   {2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 2},
    {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
    };
+   
+   boolean ghostBlink = false;
+   int blinkTimer;
    
    
   //draws board to screen
@@ -30,11 +33,16 @@ class Board {
         switch(walls[i][j]){
           case 1:
             fill(255);
-            circle(j*50+25, i*50+25, 20);
+            circle(j*50+25, i*50+25, 10);
             break;
           case 2:
             fill(50, 0, 250);
             square(j*50, i*50, 50);
+            break;
+          case 3:
+            fill(255);
+            circle(j*50+25, i*50+25, 20);
+            break;
         }
       }
     }
@@ -49,5 +57,30 @@ class Board {
     return walls[y][x];
   }
   
+  //updates board when things are eaten
+  int eatScore(int x, int y){
+    try{
+      switch(walls[y][x]) {
+        case 1:
+          walls[y][x] = 0;
+          return 1;
+        case 3:
+          walls[y][x] = 0;
+          ghostBlink = true;
+          blinkTimer = 200;
+          return 2;
+      }
+    } catch (ArrayIndexOutOfBoundsException e) {
+    }
+    return 0;
+  }
   
+  void updateBlink(){
+    if(blinkTimer > 0){
+      blinkTimer -= 1;
+    }
+    if(blinkTimer <= 0) {
+      ghostBlink = false;
+    }
+  }
 }

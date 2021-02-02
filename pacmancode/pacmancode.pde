@@ -1,24 +1,34 @@
 
 Board board = new Board();
-Player player = new Player(7, 12);
+Player player = new Player();
+Ghost ghost1 = new DumbGhost(8, 6, 8, 5, color(255, 0, 0));
 
 
 
 void setup() {
   size(800, 800);
   frameRate(60);
+  noStroke();
 }
 
 
 void draw() {
   background(0);
-  fill(50, 0, 250);
   
   board.drawBoard();
   
-  player.animatePlayer();s
-  player.drawPlayer();
-  player.moveEntity();
+  fill(255);
+  textAlign(LEFT, TOP);
+  textSize(30);
+  text(player.score, 15, 10);
+  
+  player.playerActions();
+  
+  board.updateBlink();
+  
+  
+  ghost1.drawGhost();
+  ghost1.moveEntity();
   
   
 }
