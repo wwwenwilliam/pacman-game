@@ -18,6 +18,7 @@ void draw() {
   
   player.animatePlayer();
   player.drawPlayer();
+  player.movePlayer();
   
   
 }

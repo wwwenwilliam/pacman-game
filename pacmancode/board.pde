@@ -42,7 +42,11 @@ class Board {
   
   //updates a spot on the grid
   void updateBoard(int x, int y, int num){
-    walls[x][y] = num;
+    walls[y][x] = num;
+  }
+  
+  int getSquare(int x, int y){
+    return walls[y][x];
   }
   
   
