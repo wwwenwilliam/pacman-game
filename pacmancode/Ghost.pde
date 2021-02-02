@@ -2,6 +2,7 @@ abstract class Ghost extends Movable{
   
   color colour;
   ArrayList<int[]> path = new ArrayList<int[]>(); //a path to the start
+  int state; //0-normal, 1-blinking, 2-"dead"
   
   Ghost(int x, int y, int goalx, int goaly, color c){
     super(x, y, goalx, goaly, 2);
@@ -34,7 +35,7 @@ abstract class Ghost extends Movable{
   }
   
   
-  void pathFind(int goalx, int goaly){
+  void pathFind(int goalx, int goaly){ //somewhat flawed
     int currentx = (int)(x_pos-25)/50;
     int currenty = (int)(y_pos-25)/50;
     ArrayList<int[]> validmoves = new ArrayList<int[]>();
@@ -67,7 +68,6 @@ abstract class Ghost extends Movable{
           bestMove = validmoves.get(i);
         }
       }
-      println(bestMove);
       //add best move to path
       path.add(bestMove);
       currentx = bestMove[0];

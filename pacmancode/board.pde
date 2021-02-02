@@ -54,7 +54,12 @@ class Board {
   }
   
   int getSquare(int x, int y){
-    return walls[y][x];
+    try{
+      return walls[y][x];
+    } catch (ArrayIndexOutOfBoundsException e){
+      println("?");
+      return 0;
+    }
   }
   
   //updates board when things are eaten

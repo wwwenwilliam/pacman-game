@@ -1,7 +1,8 @@
 
 Board board = new Board();
 Player player = new Player();
-Ghost ghost1 = new DumbGhost(8, 6, 8, 5, color(255, 0, 0));
+//Ghost ghost1 = new DumbGhost(8, 6, 8, 3, color(255, 0, 0));
+Ghost ghost1 = new DumbGhost(1, 1, 1, 2, color(255, 0, 0));
 
 
 
