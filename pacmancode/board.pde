@@ -104,4 +104,15 @@ class Board {
     return null; 
   }
   
+  boolean checkForWin(){
+    for(int i=0; i<16; i++){
+      for(int j=0; j<16; j++){
+        if(walls[i][j] == 1 || walls[i][j] == 3){
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+  
 }

@@ -1,7 +1,6 @@
 
 Board board = new Board();
 Player player = new Player();
-//Ghost ghost1 = new DumbGhost(8, 6, 8, 3, color(255, 0, 0));
 Ghost[] ghosts = {new DumbGhost(8, 6, 8, 3, color(255, 0, 0)), new DumbGhost(7, 6, 8, 6, color(0, 255, 0))};
 
 
@@ -54,6 +53,12 @@ void draw() {
     for(int i=0; i<ghosts.length; i++){
       ghosts[i].ghostReset();
     }
+  }
+  
+  //check for win
+  if(board.checkForWin()){
+    //win thing goes here
+    println("winning works");
   }
 
 }
