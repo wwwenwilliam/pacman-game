@@ -83,9 +83,25 @@ class Board {
   void updateBlink(){
     if(blinkTimer > 0){
       blinkTimer -= 1;
-    }
-    if(blinkTimer <= 0) {
+    } else if(blinkTimer <= 0) {
       ghostBlink = false;
     }
   }
+  
+  boolean isTimer200(){
+    if(blinkTimer == 200){
+      return true;
+    }
+    return false;
+  }
+  
+  Ghost playerCollision(Player player, Ghost[] ghosts){
+    for(int i=0; i<ghosts.length; i++){
+      if(abs(player.x - ghosts[i].x) <= 0.5 && abs(player.y - ghosts[i].y) <= 0.5){
+        return ghosts[i];
+      }
+    }
+    return null; 
+  }
+  
 }

@@ -80,18 +80,42 @@ abstract class Ghost extends Movable{
        
   
   void drawGhost(){
-    fill(colour);
-    arc(x_pos, y_pos +5, 40, 40, PI, TWO_PI);
-    rect(x_pos-20, y_pos +5, 40, 5);
-    triangle(x_pos-15-10+5, y_pos+10, x_pos-5-10+5, y_pos+10, x_pos-15-10+5, y_pos+15+10);
-    triangle(x_pos-15+10-10+5, y_pos+10, x_pos-5+10-10+5, y_pos+10, x_pos+5-10+5, y_pos+15+10);
-    triangle(x_pos-15+20-10+5, y_pos+10, x_pos-5+20-10+5, y_pos+10, x_pos-15+20-10+5, y_pos+15+10);
-    triangle(x_pos-15+10+10+5, y_pos+10, x_pos-5+10+10+5, y_pos+10, x_pos+5+10+5, y_pos+15+10);
+    if(board.ghostBlink){
+      fill(50, 0, 255);
+    } else {
+      fill(colour);
+    }
+    
+    if(state != 2){
+      arc(x_pos, y_pos +5, 40, 40, PI, TWO_PI);
+      rect(x_pos-20, y_pos +5, 40, 5);
+      triangle(x_pos-15-10+5, y_pos+10, x_pos-5-10+5, y_pos+10, x_pos-15-10+5, y_pos+15+10);
+      triangle(x_pos-15+10-10+5, y_pos+10, x_pos-5+10-10+5, y_pos+10, x_pos+5-10+5, y_pos+15+10);
+      triangle(x_pos-15+20-10+5, y_pos+10, x_pos-5+20-10+5, y_pos+10, x_pos-15+20-10+5, y_pos+15+10);
+      triangle(x_pos-15+10+10+5, y_pos+10, x_pos-5+10+10+5, y_pos+10, x_pos+5+10+5, y_pos+15+10);
+    }
     fill(255);
     circle(x_pos-8, y_pos, 10);
     circle(x_pos+8, y_pos, 10);
     fill(0, 0, 255);
     circle(x_pos-9, y_pos+2, 3);
     circle(x_pos+7, y_pos+2, 3);
+  }
+  
+  void ghostReset(){
+    x_pos = 8*50+25;
+    y_pos = 6*50+25;
+    direction = false;
+    speed = -1;
+    //first square
+    xtarget = 8;
+    ytarget = 3;
+  }
+  
+  void checkState(){
+    if(!board.ghostBlink){
+      state = 0;
+      path.clear();
+    }
   }
 }

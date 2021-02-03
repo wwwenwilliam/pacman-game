@@ -5,8 +5,8 @@ class DumbGhost extends Ghost{
   }
   
   void changeDirection(){
-    if (keyPressed){
-      pathFind(8, 5);
+    if(state == 2){
+      pathFind(8, 3);
     }
     if(path.size()>1){
       super.changeDirection();
@@ -25,7 +25,7 @@ class DumbGhost extends Ghost{
   }
   
   void randomize(){
-    boolean olddirection = direction; //<>//
+    boolean olddirection = direction;
     do{
       if(random(0, 1) > 0.5) {
         direction = false;
@@ -34,7 +34,6 @@ class DumbGhost extends Ghost{
       }
       
       if(direction != olddirection){ //stops ghost from going back the way it came. Buggy for some reason
-        println(direction, olddirection);
         if(random(0, 1) > 0.5){
           speed = 1;
         } else {

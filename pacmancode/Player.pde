@@ -4,6 +4,7 @@ class Player extends Movable{
   int changeMouth;
   int mouthAngle;
   int score;
+  int state = 0; //0-normal, 1-dead
   
   Player() {
     super(7, 12, 8, 12, 5);
@@ -27,7 +28,8 @@ class Player extends Movable{
         mouthAngle = 330;
       }
     }
-    arc(x_pos, y_pos, 40, 40, radians(mouthAngle - mouth), radians(mouthAngle + 240 + mouth));
+    if(state == 0)
+      arc(x_pos, y_pos, 40, 40, radians(mouthAngle - mouth), radians(mouthAngle + 240 + mouth));
   }
   
   //animates player
@@ -78,6 +80,16 @@ class Player extends Movable{
     drawPlayer();
     moveEntity();
     eatBalls();
+  }
+  
+  void playerReset(){
+    x_pos = 7*50+25;
+    y_pos = 12*50+25;
+    xtarget = 8;
+    ytarget = 12;
+    direction = true;
+    speed = 1;
+    state = 0;
   }
     
   
