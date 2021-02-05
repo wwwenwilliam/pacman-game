@@ -36,46 +36,9 @@ abstract class Ghost extends Movable{
   
   
   void pathFind(int goalx, int goaly){ //somewhat flawed
-    int currentx = (int)(x_pos-25)/50;
-    int currenty = (int)(y_pos-25)/50;
-    ArrayList<int[]> validmoves = new ArrayList<int[]>();
-    int[] bestMove= {0, 0};
-    int bestScore = 99999;
-    int currentScore;
-    while(goalx != currentx || goaly != currenty){
-      //find valid adj moves   
-      if(board.getSquare(currentx +1, currenty) != 2){
-        validmoves.add(new int[]{currentx+1, currenty});
-      }
-      
-      if(board.getSquare(currentx -1, currenty) != 2){
-        validmoves.add(new int[]{currentx-1, currenty});
-      }
-      
-      if(board.getSquare(currentx, currenty +1) != 2){
-        validmoves.add(new int[]{currentx, currenty+1});
-      }
-      
-      if(board.getSquare(currentx, currenty -1) != 2){
-        validmoves.add(new int[]{currentx, currenty-1});
-      }
-
-      //calculate dist for all
-      for(int i=0; i<validmoves.size(); i++){
-        currentScore = abs(validmoves.get(i)[0] - goalx) + abs(validmoves.get(i)[1] - goaly);
-        if (currentScore<bestScore){
-          bestScore = currentScore;
-          bestMove = validmoves.get(i);
-        }
-      }
-      //add best move to path
-      path.add(bestMove);
-      currentx = bestMove[0];
-      currenty = bestMove[1];
-      
-      //infinite case
-      if(path.size() > 100) break;
-    }
+    Pathfinding finder = new Pathfinding();
+    
+    path = finder.findPath((int)x, (int)y, goalx, goaly);
   }
        
   
@@ -114,8 +77,20 @@ abstract class Ghost extends Movable{
   
   void checkState(){
     if(!board.ghostBlink){
-      state = 0;
-      path.clear();
+      if(state == 1){
+        state = 0;
+        factor = 2;
+      }
+    } else {
+      if(state == 2){
+      factor = 2;
+      }
     }
+    if(state == 2 && (int)x == 8 && (int)y == 6){
+      state = 0;
+      factor = 2;
+     }
   }
+  
+  
 }

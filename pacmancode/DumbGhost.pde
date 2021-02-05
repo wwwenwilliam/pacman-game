@@ -6,7 +6,7 @@ class DumbGhost extends Ghost{
   
   void changeDirection(){
     if(state == 2){
-      pathFind(8, 3);
+      pathFind(8, 6);
     }
     if(path.size()>1){
       super.changeDirection();
