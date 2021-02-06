@@ -1,7 +1,7 @@
 
 Board board = new Board();
 Player player = new Player();
-Ghost[] ghosts = {new DumbGhost(8, 6, 8, 3, color(255, 0, 0)), new DumbGhost(7, 6, 8, 6, color(0, 255, 0))};
+Ghost[] ghosts = {new DumbGhost(8, 6, 8, 3, color(255, 0, 0)), new DumbGhost(7, 6, 8, 6, color(0, 255, 0)), new SmartGhost(7, 5, 7, 5, color(255, 150, 150), player)};
 
 
 
